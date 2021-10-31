@@ -10,4 +10,3 @@ function jsonParse($file)
     }
     return $data;
 }
-

@@ -13,7 +13,7 @@ function format($tree): string
         $key = $item['key'];
         $type = $item['type'];
 
-        switch($type) {
+        switch ($type) {
             case 'deleted':
                 $value = $item['value'];
                 $line = "- {$key}: {$value}";

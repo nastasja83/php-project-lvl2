@@ -11,7 +11,3 @@ function jsonParse($file)
     return $data;
 }
 
-function toString($value)
-{
-     return trim(var_export($value, true), "'");
-}

@@ -16,19 +16,25 @@ function format($tree): string
         switch($type) {
             case 'deleted':
                 $value = $item['value'];
-                return "- {$key}: {$value}";
+                $line = "- {$key}: {$value}";
+                break;
             case 'unchanged':
                 $value = $item['value'];
-                return "  {$key}: {$value}";
+                $line = "  {$key}: {$value}";
+                break;
             case 'added':
                 $value = $item['value'];
-                return "+ {$key}: {$value}";
+                $line = "+ {$key}: {$value}";
+                break;
             case 'changed':
                 $oldValue = $item['oldValue'];
                 $newValue = $item['newValue'];
-                return "- {$key}: {$oldValue}\n+ {$key}: {$newValue}";
+                $line = "- {$key}: {$oldValue}\n+ {$key}: {$newValue}";
+                break;
         }
+        return $line;
     }, $tree);
-    $result = implode("\n", $lines);
-    return "\n{$result}\n";
+    $unitedLines = implode("\n", $lines);
+    $result =  "\n{$unitedLines}\n";
+    return $result;
 }

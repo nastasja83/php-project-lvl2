@@ -10,7 +10,8 @@
         "files": [
             "src/Cli.php",
             "src/gendiff.php",
-            "src/parsers.php"
+            "src/parsers.php",
+            "src/Formatters/plain.php"
         ]
     },
     "bin": [

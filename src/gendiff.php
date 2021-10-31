@@ -14,23 +14,23 @@ function genDiff($pathToFile1, $pathToFile2)
     $tree = array_map(function ($key) use ($config1, $config2) {
         if (!array_key_exists($key, $config1)) {
             return ['key' => $key,
-                    'value' => $config2[$key],
+                    'value' => toString($config2[$key]),
                     'type' => 'added'];
         }
         if (!array_key_exists($key, $config2)) {
             return ['key' => $key,
-                    'value' => $config1[$key],
+                    'value' => toString($config1[$key]),
                     'type' => 'deleted'];
         }
         if ($config1[$key] === $config2[$key]) {
             return ['key' => $key,
-                    'value' => $config1[$key],
+                    'value' => toString($config1[$key]),
                     'type' => 'unchanged'];
         }
         if ($config1[$key] !== $config2[$key]) {
             return ['key' => $key,
-                    'oldValue' => $config1[$key],
-                    'newValue' => $config2[$key],
+                    'oldValue' => toString($config1[$key]),
+                    'newValue' => toString($config2[$key]),
                     'type' => 'changed'];
         }
     }, $mergedKeys);

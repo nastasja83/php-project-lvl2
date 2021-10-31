@@ -10,8 +10,7 @@ function genDiff($pathToFile1, $pathToFile2)
     $config1 = jsonParse(getContent($pathToFile1));
     $config2 = jsonParse(getContent($pathToFile2));
 
-    $mergedConfigs = array_merge($config1, $config2);
-    $mergedKeys = array_keys($mergedConfigs);
+    $mergedKeys = array_keys(array_merge($config1, $config2));
     sort($mergedKeys);
 
     $tree = array_map(function ($key) use ($config1, $config2) {
@@ -37,7 +36,6 @@ function genDiff($pathToFile1, $pathToFile2)
                     'type' => 'changed'];
         }
     }, $mergedKeys);
-
     return format($tree);
 }
 

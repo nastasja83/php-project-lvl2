@@ -2,6 +2,8 @@
 
 namespace Differ\Differ;
 
+use function Differ\Differ\Formatters\toString;
+
 function genDiff($pathToFile1, $pathToFile2)
 {
     $config1 = jsonParse(getContent($pathToFile1));

@@ -3,6 +3,7 @@
 namespace Differ\Differ;
 
 use function Differ\Differ\Formatters\toString;
+use function Differ\Differ\Formatters\format;
 
 function genDiff($pathToFile1, $pathToFile2)
 {
@@ -37,7 +38,7 @@ function genDiff($pathToFile1, $pathToFile2)
         }
     }, $mergedKeys);
 
-    return ($tree);
+    return format($tree);
 }
 
 function getContent($pathToFile)

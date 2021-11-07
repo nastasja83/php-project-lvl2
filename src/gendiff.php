@@ -35,6 +35,12 @@ function getDifferTree($config1, $config2)
     }, $mergedKeys);
 }
 
+function getContent($pathToFile)
+{
+    $fullPath = realpath($pathToFile);
+    return file_get_contents($fullPath);
+}
+
 function genDiff($pathToFile1, $pathToFile2)
 {
     $config1 = jsonParse(getContent($pathToFile1));
@@ -42,10 +48,4 @@ function genDiff($pathToFile1, $pathToFile2)
     $differTree = getDifferTree($config1, $config2);
 
     return format($differTree);
-}
-
-function getContent($pathToFile)
-{
-    $fullPath = realpath($pathToFile);
-    return file_get_contents($fullPath);
 }

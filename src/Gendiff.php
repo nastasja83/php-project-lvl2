@@ -47,12 +47,6 @@ function getDifferTree(array $config1, array $config2): array
 
 function getContent(string $pathToFile): string
 {
-   /* if (file_exists($pathToFile)) {
-        $fullPath = realpath($pathToFile);
-    } else {
-        throw new Exception('File not exists ' . $pathToFile);
-    }*/
-
     $data = file_get_contents($pathToFile);
 
     if (is_string($data)) {

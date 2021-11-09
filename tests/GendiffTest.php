@@ -15,7 +15,7 @@ class GendiffTest extends TestCase
         return $this->path . $name;
     }
 
-    protected function testGendiffPlain(): void
+    public function testGendiffPlain(): void
     {
         $expectedPlain = file_get_contents($this->getFilePath('plain.txt'));
         $firstPath = $this->getFilePath('first.json');

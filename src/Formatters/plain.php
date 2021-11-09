@@ -32,20 +32,20 @@ function format(array $tree): string
         switch ($type) {
             case 'deleted':
                 $value = $item['value'];
-                $line = "- {$key}: {$value}";
+                $line = "  - {$key}: {$value}";
                 break;
             case 'unchanged':
                 $value = $item['value'];
-                $line = "  {$key}: {$value}";
+                $line = "    {$key}: {$value}";
                 break;
             case 'added':
                 $value = $item['value'];
-                $line = "+ {$key}: {$value}";
+                $line = "  + {$key}: {$value}";
                 break;
             case 'changed':
                 $oldValue = $item['oldValue'];
                 $newValue = $item['newValue'];
-                $line = "- {$key}: {$oldValue}\n+ {$key}: {$newValue}";
+                $line = "  - {$key}: {$oldValue}\n  + {$key}: {$newValue}";
                 break;
             default:
                 throw new Exception('Unknown type of item');
@@ -53,6 +53,6 @@ function format(array $tree): string
         return $line;
     }, $tree);
     $unitedLines = implode("\n", $lines);
-    $result =  "\n{$unitedLines}\n";
+    $result =  "\n{\n{$unitedLines}\n}";
     return $result;
 }

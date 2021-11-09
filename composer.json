@@ -5,11 +5,13 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Hexlet\\Code\\": "src/"
+            "Hexlet\\Code\\": "src/",
+            "Differ\\Differ\\": "src/",
+            "Tests\\": "tests/"
         },
         "files": [
             "src/Cli.php",
-            "src/gendiff.php",
+            "src/Gendiff.php",
             "src/parsers.php",
             "src/Formatters/plain.php"
         ]
@@ -18,7 +20,8 @@
         "bin/gendiff"
     ],
     "scripts": {
-        "phpcs": "phpcs"
+        "phpcs": "phpcs",
+        "test": "phpunit"
       },
     "authors": [
         {

@@ -2,10 +2,20 @@
 
 namespace Differ\Differ;
 
+use Exception;
+
 use function Differ\Differ\Formatters\toString;
 use function Differ\Differ\Formatters\format;
 
-function getDifferTree($config1, $config2)
+/**
+ * Get differTree array
+
+ * @param array<mixed> $config1 array
+ * @param array<mixed> $config2 array
+
+ * @return array<mixed>
+ */
+function getDifferTree(array $config1, array $config2): array
 {
     $mergedKeys = array_keys(array_merge($config1, $config2));
     sort($mergedKeys);
@@ -35,13 +45,24 @@ function getDifferTree($config1, $config2)
     }, $mergedKeys);
 }
 
-function getContent($pathToFile)
+function getContent(string $pathToFile): string
 {
-    $fullPath = realpath($pathToFile);
-    return file_get_contents($fullPath);
+   /* if (file_exists($pathToFile)) {
+        $fullPath = realpath($pathToFile);
+    } else {
+        throw new Exception('File not exists ' . $pathToFile);
+    }*/
+
+    $data = file_get_contents($pathToFile);
+
+    if (is_string($data)) {
+        return $data;
+    } else {
+        throw new Exception('File cannot be read ' . $pathToFile);
+    }
 }
 
-function genDiff($pathToFile1, $pathToFile2)
+function genDiff(string $pathToFile1, string $pathToFile2): string
 {
     $config1 = jsonParse(getContent($pathToFile1));
     $config2 = jsonParse(getContent($pathToFile2));

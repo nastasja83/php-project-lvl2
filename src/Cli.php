@@ -4,7 +4,12 @@ namespace Differ\Cli;
 
 use function Differ\Differ\genDiff;
 
-function run()
+/**
+ * Generating and print diff
+
+ * @return void
+ */
+function run(): void
 {
     $doc = <<<DOC
     gendiff -h
@@ -23,9 +28,9 @@ function run()
     
     DOC;
 
-    $result = \Docopt::handle($doc, array('version' => '0.0.1'));
-    $firstFilePath = $result['<firstFile>'];
-    $secondFilePath = $result['<secondFile>'];
+    $path = \Docopt::handle($doc, array('version' => '0.0.1'));
+    $firstFilePath = $path['<firstFile>'];
+    $secondFilePath = $path['<secondFile>'];
 
     print_r(genDiff($firstFilePath, $secondFilePath));
 }

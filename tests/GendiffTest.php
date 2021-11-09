@@ -10,7 +10,7 @@ class GendiffTest extends TestCase
 {
     private string $path = __DIR__ . "/fixtures/";
 
-    private function getFilePath($name)
+    private function getFilePath(string $name): string
     {
         return $this->path . $name;
     }

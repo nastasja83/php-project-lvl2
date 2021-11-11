@@ -53,6 +53,6 @@ function format(array $tree): string
         return $line;
     }, $tree);
     $unitedLines = implode("\n", $lines);
-    $result =  "\n{\n{$unitedLines}\n}";
+    $result =  "\n{\n{$unitedLines}\n}\n";
     return $result;
 }

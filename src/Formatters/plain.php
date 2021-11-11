@@ -18,8 +18,7 @@ function toString($value): string
 /**
  * Transform $differTree to string
 
- * @param array $tree differTree
- * @param array<mixed> $tree
+ * @param array<mixed> $tree differTree
 
  * @return string
  */

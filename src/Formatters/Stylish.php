@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Differ\Formatters;
+namespace Differ\Differ\Stylish;
 
 use Exception;
 
@@ -30,20 +30,20 @@ function format(array $tree): string
 
         switch ($type) {
             case 'deleted':
-                $value = $item['value'];
+                $value = toString($item['value']);
                 $line = "  - {$key}: {$value}";
                 break;
             case 'unchanged':
-                $value = $item['value'];
+                $value = toString($item['value']);
                 $line = "    {$key}: {$value}";
                 break;
             case 'added':
-                $value = $item['value'];
+                $value = toString($item['value']);
                 $line = "  + {$key}: {$value}";
                 break;
             case 'changed':
-                $oldValue = $item['oldValue'];
-                $newValue = $item['newValue'];
+                $oldValue = toString($item['oldValue']);
+                $newValue = toString($item['newValue']);
                 $line = "  - {$key}: {$oldValue}\n  + {$key}: {$newValue}";
                 break;
             default:

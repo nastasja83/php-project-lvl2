@@ -8,3 +8,5 @@
 
 Сomparison of flat JSON files
 [![asciicast](https://asciinema.org/a/445984.svg)](https://asciinema.org/a/445984)
+Сomparison of flat YAML files
+[![asciicast](https://asciinema.org/a/MHHEU5yjJ3kMKAiE2UMOo5wOI.svg)](https://asciinema.org/a/MHHEU5yjJ3kMKAiE2UMOo5wOI)

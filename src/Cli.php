@@ -28,9 +28,11 @@ function run(): void
     
     DOC;
 
-    $path = \Docopt::handle($doc, array('version' => '0.0.1'));
-    $firstFilePath = $path['<firstFile>'];
-    $secondFilePath = $path['<secondFile>'];
+    $params = \Docopt::handle($doc);
+    $firstFilePath = $params['<firstFile>'];
+    $secondFilePath = $params['<secondFile>'];
+    $format = $params['--format'];
 
-    print_r(genDiff($firstFilePath, $secondFilePath));
+    $diff = genDiff($firstFilePath, $secondFilePath, $format);
+    printf($diff);
 }

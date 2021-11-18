@@ -23,9 +23,9 @@ class GendiffTest extends TestCase
     /**
      * @return void
      */
-    public function testGendiffPlain(): void
+    public function testGendiff(): void
     {
-        $expectedPlain = file_get_contents($this->getFilePath('plain.txt'));
+        $expectedPlain = file_get_contents($this->getFilePath('nested.txt'));
         $firstPathJson = $this->getFilePath('first.json');
         $secondPathJson = $this->getFilePath('second.json');
         $firstPathYaml = $this->getFilePath('first.yml');

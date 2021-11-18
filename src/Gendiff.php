@@ -3,7 +3,6 @@
 namespace Differ\Differ;
 
 use Exception;
-use stdClass;
 
 use function Differ\Differ\formatDiff;
 
@@ -20,29 +19,47 @@ function getDifferTree(object $config1, object $config2): array
 
     return array_map(function ($key) use ($config1, $config2) {
         if (!property_exists($config1, $key)) {
-            return ['key' => $key,
-                    'value' => $config2->{$key},
-                    'type' => 'added'];
+            return [
+                'key' => $key,
+                'value' => $config2->{$key},
+                'type' => 'added'
+            ];
         }
         if (!property_exists($config2, $key)) {
-            return ['key' => $key,
-                    'value' => $config1->{$key},
-                    'type' => 'deleted'];
+            return [
+                'key' => $key,
+                'value' => $config1->{$key},
+                'type' => 'deleted'
+            ];
         }
         if ($config1->{$key} === $config2->{$key}) {
-            return ['key' => $key,
-                    'value' => $config1->{$key},
-                    'type' => 'unchanged'];
+            return [
+                'key' => $key,
+                'value' => $config1->{$key},
+                'type' => 'unchanged'
+            ];
         }
-        if ($config1->{$key} !== $config2->{$key}) {
-            return ['key' => $key,
-                    'oldValue' => $config1->{$key},
-                    'newValue' => $config2->{$key},
-                    'type' => 'changed'];
+        if (is_object($config1->{$key}) && is_object($config2->{$key})) {
+            return [
+                'key' => $key,
+                'type' => 'parent',
+                'children' => getDifferTree($config1->{$key}, $config2->{$key})
+            ];
         }
+        return [
+            'key' => $key,
+            'oldValue' => $config1->{$key},
+            'newValue' => $config2->{$key},
+            'type' => 'changed'
+        ];
     }, $mergedKeys);
 }
 
+/**
+ * @param string $pathToFile
+ *
+ * @return string
+ */
 function getContent(string $pathToFile): string
 {
     $data = file_get_contents($pathToFile);
@@ -53,6 +70,11 @@ function getContent(string $pathToFile): string
     }
 }
 
+/**
+ * @param string $pathToFile
+ *
+ * @return object
+ */
 function getFileData(string $pathToFile): object
 {
     $content = getContent($pathToFile);
@@ -61,6 +83,13 @@ function getFileData(string $pathToFile): object
     return parse($content, $type);
 }
 
+/**
+ * @param string $pathToFile1
+ * @param string $pathToFile2
+ * @param string $format
+ *
+ * @return string
+ */
 function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish'): string
 {
     $config1 = getFileData($pathToFile1);

@@ -33,7 +33,6 @@ function format(array $tree, array $propertyNames = []): string
     $lines = array_map(function ($item) use ($propertyNames) {
         $type = $item['type'];
         $key = $item['key'];
-        var_dump($type);
         $name = implode('.', [...$propertyNames, $key]);
 
         switch ($type) {

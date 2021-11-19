@@ -25,13 +25,15 @@ class GendiffTest extends TestCase
      */
     public function testGendiff(): void
     {
-        $expectedPlain = file_get_contents($this->getFilePath('StylishExpected.txt'));
+        $expectedStylish = file_get_contents($this->getFilePath('StylishExpected.txt'));
+        $expectedPlain = file_get_contents($this->getFilePath('PlainExpected.txt'));
         $firstPathJson = $this->getFilePath('first.json');
         $secondPathJson = $this->getFilePath('second.json');
         $firstPathYaml = $this->getFilePath('first.yml');
         $secondPathYaml = $this->getFilePath('second.yml');
-        $format = 'stylish';
-        $this->assertEquals($expectedPlain, genDiff($firstPathJson, $secondPathJson, $format));
-        $this->assertEquals($expectedPlain, genDiff($firstPathYaml, $secondPathYaml, $format));
+        $this->assertEquals($expectedStylish, genDiff($firstPathJson, $secondPathJson, 'stylish'));
+        $this->assertEquals($expectedStylish, genDiff($firstPathYaml, $secondPathYaml, 'stylish'));
+        $this->assertEquals($expectedPlain, genDiff($firstPathJson, $secondPathJson, 'plain'));
+        $this->assertEquals($expectedPlain, genDiff($firstPathYaml, $secondPathYaml, 'plain'));
     }
 }

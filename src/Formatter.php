@@ -16,9 +16,9 @@ function formatDiff(string $format, array $differTree): string
         case 'plain':
             $formatted = Plain\format($differTree);
             break;
-        /*case 'json':
+        case 'json':
             $formatted = Json\format($differTree);
-            break;*/
+            break;
         case 'stylish':
             $formatted = Stylish\format($differTree);
             break;

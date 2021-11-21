@@ -61,28 +61,32 @@ function format(array $tree, int $depth = 0): string
     $indent = getIndent($depth);
     $lines = array_map(function ($item) use ($indent, $depth) {
         $key = $item['key'];
-        $type = $item['type'];
-
-        switch ($type) {
+        switch ($item['type']) {
             case 'deleted':
                 $value = stringify($item['value'], $depth);
-                return "{$indent}  - {$key}: {$value}";
+                $line = "{$indent}  - {$key}: {$value}";
+                break;
             case 'unchanged':
                 $value = stringify($item['value'], $depth);
-                return "{$indent}    {$key}: {$value}";
+                $line = "{$indent}    {$key}: {$value}";
+                break;
             case 'added':
                 $value = stringify($item['value'], $depth);
-                return "{$indent}  + {$key}: {$value}";
+                $line = "{$indent}  + {$key}: {$value}";
+                break;
             case 'changed':
                 $oldValue = stringify($item['oldValue'], $depth);
                 $newValue = stringify($item['newValue'], $depth);
-                return "{$indent}  - {$key}: {$oldValue}\n{$indent}  + {$key}: {$newValue}";
+                $line = "{$indent}  - {$key}: {$oldValue}\n{$indent}  + {$key}: {$newValue}";
+                break;
             case 'parent':
                 $value = format($item['children'], $depth + 1);
-                return "{$indent}    {$key}: {$value}";
+                $line = "{$indent}    {$key}: {$value}";
+                break;
             default:
                 throw new Exception('Unknown type of item');
         }
+        return $line;
     }, $tree);
     return implode("\n", ["{", ...$lines, "{$indent}}"]);
 }

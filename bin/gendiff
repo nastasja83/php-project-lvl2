@@ -36,4 +36,4 @@ $secondFilePath = $params['<secondFile>'];
 $format = $params['--format'];
 
 $diff = genDiff($firstFilePath, $secondFilePath, $format);
-printf($diff);
+print_r("{$diff}\n");

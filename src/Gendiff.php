@@ -5,6 +5,7 @@ namespace Differ\Differ;
 use Exception;
 
 use function Differ\Differ\formatDiff;
+use function Functional\sort;
 
 /**
  * @param object $config1
@@ -15,7 +16,7 @@ use function Differ\Differ\formatDiff;
 function getDifferTree(object $config1, object $config2): array
 {
     $mergedKeys = array_keys(array_merge((array) $config1, (array) $config2));
-    sort($mergedKeys);
+    $sortedKeys = sort($mergedKeys, fn ($left, $right) => strcmp($left, $right));
 
     return array_map(function ($key) use ($config1, $config2) {
         if (!property_exists($config1, $key)) {
@@ -52,7 +53,7 @@ function getDifferTree(object $config1, object $config2): array
             'newValue' => $config2->{$key},
             'type' => 'changed'
         ];
-    }, $mergedKeys);
+    }, $sortedKeys);
 }
 
 /**

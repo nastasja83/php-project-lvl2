@@ -10,7 +10,7 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "src/Gendiff.php",
+            "src/DiffGenerator.php",
             "src/Parsers.php",
             "src/Formatter.php",
             "src/Formatters/Stylish.php",

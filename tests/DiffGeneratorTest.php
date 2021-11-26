@@ -41,7 +41,6 @@ class DiffGeneratorTest extends TestCase
 
         $this->assertEquals($expectedStylish, genDiff($firstPathJson, $secondPathJson, 'stylish'));
         $this->assertEquals($expectedStylish, genDiff($firstPathYaml, $secondPathYaml, 'stylish'));
-
     }
     /**
      * @return void
@@ -53,7 +52,6 @@ class DiffGeneratorTest extends TestCase
 
         $this->assertEquals($expectedPlain, genDiff($firstPathJson, $secondPathJson, 'plain'));
         $this->assertEquals($expectedPlain, genDiff($firstPathYaml, $secondPathYaml, 'plain'));
-
     }
 
     /**

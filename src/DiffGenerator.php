@@ -8,49 +8,49 @@ use function Differ\Differ\formatDiff;
 use function Functional\sort;
 
 /**
- * @param object $config1
- * @param object $config2
+ * @param object $obj1
+ * @param object $obj2
  *
  * @return array
  */
-function getDifferTree(object $config1, object $config2): array
+function getDifferTree(object $obj1, object $obj2): array
 {
-    $mergedKeys = array_keys(array_merge((array) $config1, (array) $config2));
+    $mergedKeys = array_keys(array_merge((array) $obj1, (array) $obj2));
     $sortedKeys = sort($mergedKeys, fn ($left, $right) => strcmp($left, $right));
 
-    return array_map(function ($key) use ($config1, $config2) {
-        if (!property_exists($config1, $key)) {
+    return array_map(function ($key) use ($obj1, $obj2) {
+        if (!property_exists($obj1, $key)) {
             return [
                 'key' => $key,
-                'value' => $config2->{$key},
+                'value' => $obj2->{$key},
                 'type' => 'added'
             ];
         }
-        if (!property_exists($config2, $key)) {
+        if (!property_exists($obj2, $key)) {
             return [
                 'key' => $key,
-                'value' => $config1->{$key},
+                'value' => $obj1->{$key},
                 'type' => 'deleted'
             ];
         }
-        if ($config1->{$key} === $config2->{$key}) {
+        if ($obj1->{$key} === $obj2->{$key}) {
             return [
                 'key' => $key,
-                'value' => $config1->{$key},
+                'value' => $obj1->{$key},
                 'type' => 'unchanged'
             ];
         }
-        if (is_object($config1->{$key}) && is_object($config2->{$key})) {
+        if (is_object($obj1->{$key}) && is_object($obj2->{$key})) {
             return [
                 'key' => $key,
                 'type' => 'parent',
-                'children' => getDifferTree($config1->{$key}, $config2->{$key})
+                'children' => getDifferTree($obj1->{$key}, $obj2->{$key})
             ];
         }
         return [
             'key' => $key,
-            'oldValue' => $config1->{$key},
-            'newValue' => $config2->{$key},
+            'oldValue' => $obj1->{$key},
+            'newValue' => $obj2->{$key},
             'type' => 'changed'
         ];
     }, $sortedKeys);

@@ -8,49 +8,49 @@ use function Differ\Differ\formatDiff;
 use function Functional\sort;
 
 /**
- * @param object $obj1
- * @param object $obj2
+ * @param object $data1
+ * @param object $data2
  *
  * @return array
  */
-function getDifferTree(object $obj1, object $obj2): array
+function getDifferTree(object $data1, object $data2): array
 {
-    $mergedKeys = array_keys(array_merge((array) $obj1, (array) $obj2));
+    $mergedKeys = array_keys(array_merge((array) $data1, (array) $data2));
     $sortedKeys = sort($mergedKeys, fn ($left, $right) => strcmp($left, $right));
 
-    return array_map(function ($key) use ($obj1, $obj2) {
-        if (!property_exists($obj1, $key)) {
+    return array_map(function ($key) use ($data1, $data2) {
+        if (!property_exists($data1, $key)) {
             return [
                 'key' => $key,
-                'value' => $obj2->{$key},
+                'value' => $data2->{$key},
                 'type' => 'added'
             ];
         }
-        if (!property_exists($obj2, $key)) {
+        if (!property_exists($data2, $key)) {
             return [
                 'key' => $key,
-                'value' => $obj1->{$key},
+                'value' => $data1->{$key},
                 'type' => 'deleted'
             ];
         }
-        if ($obj1->{$key} === $obj2->{$key}) {
+        if ($data1->{$key} === $data2->{$key}) {
             return [
                 'key' => $key,
-                'value' => $obj1->{$key},
+                'value' => $data1->{$key},
                 'type' => 'unchanged'
             ];
         }
-        if (is_object($obj1->{$key}) && is_object($obj2->{$key})) {
+        if (is_object($data1->{$key}) && is_object($data2->{$key})) {
             return [
                 'key' => $key,
                 'type' => 'parent',
-                'children' => getDifferTree($obj1->{$key}, $obj2->{$key})
+                'children' => getDifferTree($data1->{$key}, $data2->{$key})
             ];
         }
         return [
             'key' => $key,
-            'oldValue' => $obj1->{$key},
-            'newValue' => $obj2->{$key},
+            'oldValue' => $data1->{$key},
+            'newValue' => $data2->{$key},
             'type' => 'changed'
         ];
     }, $sortedKeys);
